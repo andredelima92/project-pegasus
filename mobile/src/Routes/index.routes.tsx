@@ -7,7 +7,6 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 import Login from '../pages/Login';
-import SignUp from '../pages/SignUp';
 
 function Tabs() {
   return (
@@ -20,9 +19,10 @@ function Tabs() {
 function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

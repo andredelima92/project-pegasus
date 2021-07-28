@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { ActivityIndicator, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import api from '../../services/api';
+import { showErrors } from '../../utils';
 
 import {
   Container,
@@ -20,10 +23,40 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loadingCreate, setLoadingCreate] = useState(false);
+  const [loadingLogin, setLoadingLogin] = useState(false);
 
-  const handleLogin = useCallback(() => {
-    console.log(email);
-  }, [email]);
+  const handleLogin = useCallback(async () => {
+    if (loadingLogin) {
+      return;
+    }
+
+    setLoadingLogin(true);
+
+    try {
+      const { data } = await api.post('users/login', { email, password });
+      api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      setLoadingLogin(false);
+    } catch (err) {
+      showErrors(err);
+      setLoadingLogin(false);
+    }
+  }, [email, password, loadingLogin]);
+
+  const handleCreateAccount = useCallback(async () => {
+    if (loadingCreate) {
+      return;
+    }
+
+    setLoadingCreate(true);
+    try {
+      await api.post('users/signup', { email, password });
+      Alert.alert('Cadastro realizado com sucesso');
+    } catch (err) {
+      showErrors(err);
+    }
+    setLoadingCreate(false);
+  }, [email, password, loadingCreate]);
 
   return (
     <Container>
@@ -39,15 +72,16 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
       </ViewLabel>
       <ViewButton>
         <LoginButton onPress={handleLogin}>
-          <TextButton>Login</TextButton>
+          <TextButton>
+            {loadingLogin ? <ActivityIndicator color="#fff" /> : 'Login'}
+          </TextButton>
         </LoginButton>
       </ViewButton>
       <ViewButton>
-        <ButtonCreateAccount
-          onPress={() => {
-            navigation.navigate('SignUp');
-          }}>
-          <TextCreateAccount>Criar conta</TextCreateAccount>
+        <ButtonCreateAccount onPress={handleCreateAccount}>
+          <TextCreateAccount>
+            {loadingCreate ? <ActivityIndicator color="#fff" /> : 'Criar conta'}
+          </TextCreateAccount>
         </ButtonCreateAccount>
       </ViewButton>
     </Container>
