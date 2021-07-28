@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import api from '../../services/api';
 import { showErrors } from '../../utils';
@@ -23,7 +23,6 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loadingCreate, setLoadingCreate] = useState(false);
   const [loadingLogin, setLoadingLogin] = useState(false);
 
   const handleLogin = useCallback(async () => {
@@ -43,21 +42,6 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     }
   }, [email, password, loadingLogin]);
 
-  const handleCreateAccount = useCallback(async () => {
-    if (loadingCreate) {
-      return;
-    }
-
-    setLoadingCreate(true);
-    try {
-      await api.post('users/signup', { email, password });
-      Alert.alert('Cadastro realizado com sucesso');
-    } catch (err) {
-      showErrors(err);
-    }
-    setLoadingCreate(false);
-  }, [email, password, loadingCreate]);
-
   return (
     <Container>
       <ViewLabel>
@@ -68,6 +52,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
           placeholder="Senha"
           value={password}
           onChangeText={setPassword}
+          secureTextEntry={true}
         />
       </ViewLabel>
       <ViewButton>
@@ -78,10 +63,8 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
         </LoginButton>
       </ViewButton>
       <ViewButton>
-        <ButtonCreateAccount onPress={handleCreateAccount}>
-          <TextCreateAccount>
-            {loadingCreate ? <ActivityIndicator color="#fff" /> : 'Criar conta'}
-          </TextCreateAccount>
+        <ButtonCreateAccount onPress={() => navigation.navigate('SignUp')}>
+          <TextCreateAccount>Criar conta</TextCreateAccount>
         </ButtonCreateAccount>
       </ViewButton>
     </Container>

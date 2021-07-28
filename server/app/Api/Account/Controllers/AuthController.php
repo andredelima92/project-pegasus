@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function signUp(SignUpRequest $request, CreateUserService $createUserService)
     {
-        $user = $createUserService->execute($request->only(['email', 'password']));
+        $user = $createUserService->execute($request->only(['email', 'password', 'name']));
 
         return response()->json($user, 201);
     }

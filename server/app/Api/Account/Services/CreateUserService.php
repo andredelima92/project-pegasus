@@ -16,6 +16,7 @@ class CreateUserService
             $data = (object) $data;
             $user = new User;
             $user->password = $data->password;
+            $user->name = $data->name;
             $user->email = $data->email;
             $user->save();
 

@@ -11,6 +11,7 @@ class SignUpRequest extends FormRequest
     {
         return [
             'email' => ['required', 'unique:users', 'max:255', 'email'],
+            'name' => ['required'],
             'password' => ['required', 'min:6', 'max:20'],
         ];
     }
@@ -27,6 +28,8 @@ class SignUpRequest extends FormRequest
             'email.unique' => 'E-mail ja cadastrado',
             'email.max' => 'E-mail contém muitos caracteres',
             'email.email' => 'E-mail inválido',
+
+            'name.required' => 'Nome não informado',
 
             'password.required' => 'Senha não informada',
             'password.min' => 'Senha precisa ter 6 digitos',
