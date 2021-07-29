@@ -40,11 +40,12 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       setLoadingLogin(false);
+      navigation.navigate('Home');
     } catch (err) {
       showErrors(err);
       setLoadingLogin(false);
     }
-  }, [email, password, loadingLogin]);
+  }, [email, password, loadingLogin, navigation]);
 
   return (
     <Container>

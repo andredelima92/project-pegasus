@@ -27,7 +27,7 @@ class DoLoginService
                 abort(400, 'Login ou senha inválidos');
             }
 
-            $user = $this->userRepository->findBy('email', $credentials['email'])->first();
+            $user = $this->userRepository->findBy(['email' => $credentials['email']])->first();
         } catch (JWTException $e) {
             abort(500);
         }
