@@ -44,8 +44,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->findBy($column, $value)->update($data);
     }
 
-    public function findBy(string $column, $value)
+    public function findBy(array $arr)
     {
-        return $this->model->where($column, $value);
+        return $this->model->where($arr);
     }
 }

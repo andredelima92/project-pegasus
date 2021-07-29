@@ -178,6 +178,7 @@ return [
 
         App\Providers\BaseServiceProvider::class,
         App\Api\Account\Providers\UserServiceProvider::class,
+        App\Api\Posts\Providers\PostServiceProvider::class,
     ],
 
     /*

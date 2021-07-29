@@ -33,8 +33,12 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     setLoadingLogin(true);
 
     try {
-      const { data } = await api.post('users/login', { email, password });
-      api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      const {
+        data: { token },
+      } = await api.post('users/login', { email, password });
+
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
       setLoadingLogin(false);
     } catch (err) {
       showErrors(err);

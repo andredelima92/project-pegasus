@@ -1,6 +1,7 @@
 <?php
 
 use Dingo\Api\Routing\Router;
+use App\Api\Posts\Controllers\PostController;
 use App\Api\Account\Controllers\AuthController;
 
 
@@ -14,6 +15,14 @@ $api->version('v1', function (Router $api) {
 
         // $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
         // });
+    });
+
+    $api->group(['prefix' => 'posts', 'middleware' => 'jwt.auth'], function (Router $api) {
+        $api->get('/', [PostController::class, 'index']);
+        $api->get('/{postId}', [PostController::class, 'show']);
+        $api->post('/', [PostController::class, 'store']);
+        $api->put('/{postId}', [PostController::class, 'update']);
+        $api->delete('/{postId}', [PostController::class, 'destroy']);
     });
 
     $api->get('me', function () {
