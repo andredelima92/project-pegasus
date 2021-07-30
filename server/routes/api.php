@@ -17,7 +17,7 @@ $api->version('v1', function (Router $api) {
         // });
     });
 
-    $api->group(['prefix' => 'posts', 'middleware' => 'jwt.auth'], function (Router $api) {
+    $api->group(['prefix' => 'posts'], function (Router $api) {
         $api->get('/', [PostController::class, 'index']);
         $api->get('/{postId}', [PostController::class, 'show']);
         $api->post('/', [PostController::class, 'store']);
@@ -29,3 +29,5 @@ $api->version('v1', function (Router $api) {
         echo "Logou";
     });
 });
+
+//'middleware' => 'jwt.auth'
