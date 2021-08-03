@@ -5,11 +5,13 @@ namespace App\Api\Account\Models;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';

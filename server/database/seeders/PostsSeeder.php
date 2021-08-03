@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Api\Software\Models\UserSoftware;
+use App\Api\Posts\Models\Post;
 use Illuminate\Database\Seeder;
 
-class UserSoftwareSeeder extends Seeder
+class PostsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class UserSoftwareSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserSoftware::class, 10)->create();
+        Post::factory()->times(30)->create();
     }
 }
