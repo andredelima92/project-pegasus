@@ -15,7 +15,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ## 👉 Configurações
 
 ### Clone este repositório
-``` git clone <https://github.com/andredelima92/project-pegasus> ```
+``` git clone https://github.com/andredelima92/project-pegasus ```
 
 ### Acesse a pasta do projeto no terminal/cmd
 ### Vá para a pasta server
