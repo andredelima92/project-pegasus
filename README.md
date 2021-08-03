@@ -32,6 +32,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ### Rode as migrations e os seeds para criar as tabelas e popular o banco
 ``` php artisan migrate --seed ``` 
 
+### Inicie o backend com o artisan
+``` php artisan serve --host 192.168.3.36 --port 8000 ```
+
 ### Vá para a pasta mobile
 ``` cd mobile ```
 
@@ -39,7 +42,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ``` npm install ```
 
 ### Configure o arquivo .env com o caminho da api
-``` API_URL=http://192.168.3.36/parlador-ideal/server/public/api ```
+``` API_URL=http://192.168.3.36:8000/api ```
 
 ### Execute a aplicação em modo de desenvolvimento
 ``` npm run start ```
