@@ -10,6 +10,8 @@ const Tab = createBottomTabNavigator();
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Home from '../pages/Home';
+import EditPost from '../pages/EditPost';
+import NewPost from '../pages/NewPost';
 
 function Tabs() {
   return (
@@ -37,7 +39,11 @@ function Tabs() {
         options={{ title: 'Postagens' }}
         component={Home}
       />
-      <Tab.Screen name="NewPost" options={{ title: 'Novo' }} component={Home} />
+      <Tab.Screen
+        name="NewPost"
+        options={{ title: 'Nova Postagem' }}
+        component={NewPost}
+      />
     </Tab.Navigator>
   );
 }
@@ -45,8 +51,13 @@ function Tabs() {
 function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="EditPost"
+          component={EditPost}
+          options={{ title: 'Editar Postagem' }}
+        />
         <Stack.Screen name="Home" component={Tabs} />
         <Stack.Screen
           name="SignUp"

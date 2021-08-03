@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import api from '../../services/api';
 import { showErrors } from '../../utils';
@@ -33,11 +34,10 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     setLoadingLogin(true);
 
     try {
-      const {
-        data: { token },
-      } = await api.post('users/login', { email, password });
+      const { data } = await api.post('users/login', { email, password });
 
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      await AsyncStorage.setItem('@user', JSON.stringify(data.user));
 
       setLoadingLogin(false);
       navigation.navigate('Home');
